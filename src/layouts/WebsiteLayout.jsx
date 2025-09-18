@@ -10,7 +10,7 @@ export default function CustomerLayout({ children }) {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       {/* Header */}
-      <header className="border-b sticky top-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50">
+      <header className="border-b border-gray-800 sticky top-0 bg-gray-900/95 backdrop-blur supports-[backdrop-filter]:bg-gray-900/60 z-50">
         <nav className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             {/* Logo */}
@@ -27,21 +27,21 @@ export default function CustomerLayout({ children }) {
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-8">
-              <Link to="/" className="text-sm font-medium hover:text-primary transition-colors relative group">
+              <Link to="/" className="text-sm font-medium text-white hover:text-pink-400 transition-colors relative group">
                 Home
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-400 transition-all group-hover:w-full"></span>
               </Link>
-              <Link to="/cakes" className="text-sm font-medium hover:text-primary transition-colors relative group">
+              <Link to="/cakes" className="text-sm font-medium text-white hover:text-pink-400 transition-colors relative group">
                 Cakes
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-400 transition-all group-hover:w-full"></span>
               </Link>
-              <Link to="/about" className="text-sm font-medium hover:text-primary transition-colors relative group">
+              <Link to="/about" className="text-sm font-medium text-white hover:text-pink-400 transition-colors relative group">
                 About
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-400 transition-all group-hover:w-full"></span>
               </Link>
-              <Link to="/contact" className="text-sm font-medium hover:text-primary transition-colors relative group">
+              <Link to="/contact" className="text-sm font-medium text-white hover:text-pink-400 transition-colors relative group">
                 Contact
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-400 transition-all group-hover:w-full"></span>
               </Link>
             </div>
 
