@@ -62,25 +62,25 @@ export default function ContactPage() {
       </section>
 
       {/* Contact Methods */}
-      <section className="py-20 bg-white dark:bg-gray-900">
+      <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-6">How Can We Help?</h2>
-            <p className="text-xl text-muted-foreground">Choose the best way to reach us</p>
+            <p className="text-xl text-gray-600">Choose the best way to reach us</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             {contactMethods.map((method, index) => (
               <div
                 key={index}
-                className="text-center group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-card text-card-foreground rounded-lg p-8"
+                className="text-center group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-white rounded-lg p-8"
               >
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 text-white mb-6 group-hover:scale-110 transition-transform">
                   <method.icon className="w-8 h-8" />
                 </div>
-                <h3 className="text-xl font-bold mb-3">{method.title}</h3>
-                <p className="text-muted-foreground mb-4">{method.description}</p>
-                <p className="font-semibold text-lg mb-2">{method.contact}</p>
-                <p className="text-sm text-muted-foreground">{method.availability}</p>
+                <h3 className="text-xl font-bold mb-3 text-gray-900">{method.title}</h3>
+                <p className="text-gray-600 mb-4">{method.description}</p>
+                <p className="font-semibold text-lg mb-2 text-gray-900">{method.contact}</p>
+                <p className="text-sm text-gray-500">{method.availability}</p>
               </div>
             ))}
           </div>
@@ -88,38 +88,38 @@ export default function ContactPage() {
       </section>
 
       {/* Custom Order Section */}
-      <section className="py-20 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+      <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
               <div>
-                <h2 className="text-4xl font-bold mb-6">Tell Us About Your Dream Cake</h2>
-                <p className="text-lg text-muted-foreground mb-8">
+                <h2 className="text-4xl font-bold mb-6 text-gray-900">Tell Us About Your Dream Cake</h2>
+                <p className="text-lg text-gray-600 mb-8">
                   Describe your vision and we'll create the perfect cake for your special occasion. 
                   For immediate orders, use WhatsApp or call us directly.
                 </p>
                 <div className="space-y-4">
                   <div className="flex items-center space-x-3">
                     <div className="w-2 h-2 bg-pink-500 rounded-full"></div>
-                    <span className="text-muted-foreground">Custom designs and flavors</span>
+                    <span className="text-gray-600">Custom designs and flavors</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                    <span className="text-muted-foreground">Personalized messages and decorations</span>
+                    <span className="text-gray-600">Personalized messages and decorations</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <div className="w-2 h-2 bg-rose-500 rounded-full"></div>
-                    <span className="text-muted-foreground">Flexible delivery options</span>
+                    <span className="text-gray-600">Flexible delivery options</span>
                   </div>
                 </div>
               </div>
-              <div className="bg-card text-card-foreground rounded-lg shadow-xl p-8">
+              <div className="bg-white rounded-lg shadow-xl p-8">
                 <div className="text-center">
                   <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 text-white mb-6">
                     <Plus className="w-10 h-10" />
                   </div>
-                  <h3 className="text-2xl font-bold mb-4">Create Your Custom Order</h3>
-                  <p className="text-muted-foreground mb-6">
+                  <h3 className="text-2xl font-bold mb-4 text-gray-900">Create Your Custom Order</h3>
+                  <p className="text-gray-600 mb-6">
                     Fill out our detailed form to tell us exactly what you need. 
                     We'll get back to you with a quote and availability.
                   </p>

@@ -213,14 +213,14 @@ export default function CustomerLayout({ children }) {
       </footer>
 
       {/* Mobile Bottom Navigation */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 z-50">
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50">
         <div className="flex items-center justify-around py-2">
           <Link
             to="/"
             className={`flex flex-col items-center py-2 px-3 rounded-lg transition-colors ${
               location.pathname === "/"
-                ? "text-pink-500 bg-pink-50 dark:bg-pink-900/20"
-                : "text-gray-600 dark:text-gray-400 hover:text-pink-500"
+                ? "text-pink-500 bg-pink-50"
+                : "text-gray-600 hover:text-pink-500"
             }`}
           >
             <Home className="w-5 h-5 mb-1" />
@@ -231,8 +231,8 @@ export default function CustomerLayout({ children }) {
             to="/cakes"
             className={`flex flex-col items-center py-2 px-3 rounded-lg transition-colors ${
               location.pathname === "/cakes"
-                ? "text-pink-500 bg-pink-50 dark:bg-pink-900/20"
-                : "text-gray-600 dark:text-gray-400 hover:text-pink-500"
+                ? "text-pink-500 bg-pink-50"
+                : "text-gray-600 hover:text-pink-500"
             }`}
           >
             <Cake className="w-5 h-5 mb-1" />
@@ -243,8 +243,8 @@ export default function CustomerLayout({ children }) {
             to="/about"
             className={`flex flex-col items-center py-2 px-3 rounded-lg transition-colors ${
               location.pathname === "/about"
-                ? "text-pink-500 bg-pink-50 dark:bg-pink-900/20"
-                : "text-gray-600 dark:text-gray-400 hover:text-pink-500"
+                ? "text-pink-500 bg-pink-50"
+                : "text-gray-600 hover:text-pink-500"
             }`}
           >
             <User className="w-5 h-5 mb-1" />
@@ -255,8 +255,8 @@ export default function CustomerLayout({ children }) {
             to="/contact"
             className={`flex flex-col items-center py-2 px-3 rounded-lg transition-colors ${
               location.pathname === "/contact"
-                ? "text-pink-500 bg-pink-50 dark:bg-pink-900/20"
-                : "text-gray-600 dark:text-gray-400 hover:text-pink-500"
+                ? "text-pink-500 bg-pink-50"
+                : "text-gray-600 hover:text-pink-500"
             }`}
           >
             <MessageCircle className="w-5 h-5 mb-1" />

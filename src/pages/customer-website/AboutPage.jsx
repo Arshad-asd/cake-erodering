@@ -64,19 +64,19 @@ export default function AboutPage() {
       </section>
 
       {/* Mission Section */}
-      <section className="py-20 bg-white dark:bg-gray-900">
+      <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 text-white mb-6">
                 <Target className="w-8 h-8" />
               </div>
-              <h2 className="text-4xl font-bold mb-6">Our Mission</h2>
-              <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+              <h2 className="text-4xl font-bold mb-6 text-gray-900">Our Mission</h2>
+              <p className="text-lg text-gray-600 mb-6 leading-relaxed">
                 To create the most beautiful and delicious cakes that bring joy to every celebration, 
                 from intimate family gatherings to grand wedding receptions.
               </p>
-              <p className="text-lg text-muted-foreground leading-relaxed">
+              <p className="text-lg text-gray-600 leading-relaxed">
                 We believe that every special moment deserves a perfect cake, and we're committed to 
                 making that dream a reality with our artisanal craftsmanship and attention to detail.
               </p>
@@ -95,11 +95,11 @@ export default function AboutPage() {
       </section>
 
       {/* Values Section */}
-      <section className="py-20 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+      <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-6">Our Values</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               The principles that guide everything we do
             </p>
           </div>
@@ -107,13 +107,13 @@ export default function AboutPage() {
             {values.map((value, index) => (
               <div
                 key={index}
-                className="text-center group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-card text-card-foreground rounded-lg p-8"
+                className="text-center group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-white rounded-lg p-8"
               >
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 text-white mb-6 group-hover:scale-110 transition-transform">
                   <value.icon className="w-8 h-8" />
                 </div>
-                <h3 className="text-xl font-bold mb-4">{value.title}</h3>
-                <p className="text-muted-foreground leading-relaxed">{value.description}</p>
+                <h3 className="text-xl font-bold mb-4 text-gray-900">{value.title}</h3>
+                <p className="text-gray-600 leading-relaxed">{value.description}</p>
               </div>
             ))}
           </div>

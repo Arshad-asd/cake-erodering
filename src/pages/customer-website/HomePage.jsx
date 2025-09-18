@@ -77,7 +77,7 @@ export default function HomePage() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-white dark:bg-gray-900">
+      <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
@@ -90,8 +90,8 @@ export default function HomePage() {
                 <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 text-white mb-4 group-hover:scale-110 transition-transform">
                   <stat.icon className="w-6 h-6" />
                 </div>
-                <div className="text-3xl font-bold text-foreground">{stat.value}</div>
-                <div className="text-sm text-muted-foreground">{stat.label}</div>
+                <div className="text-3xl font-bold text-gray-900">{stat.value}</div>
+                <div className="text-sm text-gray-600">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -99,11 +99,11 @@ export default function HomePage() {
       </section>
 
       {/* Features Preview */}
-      <section className="py-20 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+      <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">Why Choose Our Cakes?</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               Premium quality cakes made with the finest ingredients and artistic designs
             </p>
           </div>
@@ -130,11 +130,11 @@ export default function HomePage() {
             ].map((feature, index) => (
               <div
                 key={index}
-                className="group hover:shadow-xl transition-all duration-300 border-0 bg-white dark:bg-gray-800 hover:-translate-y-2 rounded-lg p-8"
+                className="group hover:shadow-xl transition-all duration-300 border-0 bg-white hover:-translate-y-2 rounded-lg p-8"
               >
                 <div className="text-5xl mb-6 group-hover:scale-110 transition-transform">{feature.icon}</div>
-                <h3 className="text-2xl font-bold mb-4">{feature.title}</h3>
-                <p className="text-muted-foreground mb-6 leading-relaxed">{feature.description}</p>
+                <h3 className="text-2xl font-bold mb-4 text-gray-900">{feature.title}</h3>
+                <p className="text-gray-600 mb-6 leading-relaxed">{feature.description}</p>
                 <ul className="space-y-2">
                   {feature.features.map((item, i) => (
                     <li key={i} className="flex items-center text-sm">
@@ -158,11 +158,11 @@ export default function HomePage() {
       </section>
 
       {/* Social Proof */}
-      <section className="py-20 bg-white dark:bg-gray-900">
+      <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-6">Loved by Cake Enthusiasts Everywhere</h2>
-            <p className="text-xl text-muted-foreground">See what our customers have to say</p>
+            <p className="text-xl text-gray-600">See what our customers have to say</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
@@ -190,17 +190,17 @@ export default function HomePage() {
             ].map((testimonial, index) => (
               <div
                 key={index}
-                className="bg-gradient-to-br from-pink-50 to-purple-50 dark:from-pink-950/20 dark:to-purple-950/20 border-0 rounded-lg p-8"
+                className="bg-gradient-to-br from-pink-50 to-purple-50 border-0 rounded-lg p-8"
               >
                 <div className="flex mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (
                     <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
                   ))}
                 </div>
-                <p className="text-muted-foreground mb-6 italic">"{testimonial.content}"</p>
+                <p className="text-gray-600 mb-6 italic">"{testimonial.content}"</p>
                 <div>
-                  <div className="font-semibold">{testimonial.name}</div>
-                  <div className="text-sm text-muted-foreground">{testimonial.role}</div>
+                  <div className="font-semibold text-gray-900">{testimonial.name}</div>
+                  <div className="text-sm text-gray-500">{testimonial.role}</div>
                 </div>
               </div>
             ))}
