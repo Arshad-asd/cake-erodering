@@ -221,17 +221,17 @@ export default function CakeListPage() {
 
           {/* Search and Filters */}
           <div className="max-w-4xl mx-auto">
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-8">
+            <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 {/* Search */}
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 w-4 h-4" />
                   <input
                     type="text"
                     placeholder="Search cakes..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2 border border-input rounded-md bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                    className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-md bg-white text-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
                   />
                 </div>
 
@@ -239,7 +239,7 @@ export default function CakeListPage() {
                 <select
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="w-full px-3 py-2 border border-input rounded-md bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                  className="w-full px-3 py-2 border border-gray-200 rounded-md bg-white text-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
                 >
                   {categories.map(category => (
                     <option key={category.value} value={category.value}>
@@ -252,7 +252,7 @@ export default function CakeListPage() {
                 <select
                   value={selectedPriceRange}
                   onChange={(e) => setSelectedPriceRange(e.target.value)}
-                  className="w-full px-3 py-2 border border-input rounded-md bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                  className="w-full px-3 py-2 border border-gray-200 rounded-md bg-white text-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
                 >
                   {priceRanges.map(range => (
                     <option key={range.value} value={range.value}>
@@ -265,7 +265,7 @@ export default function CakeListPage() {
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="w-full px-3 py-2 border border-input rounded-md bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                  className="w-full px-3 py-2 border border-gray-200 rounded-md bg-white text-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
                 >
                   {sortOptions.map(option => (
                     <option key={option.value} value={option.value}>
@@ -278,7 +278,7 @@ export default function CakeListPage() {
             
             {/* Custom Order Row */}
             <div className="flex items-center justify-center gap-4 mb-8">
-              <span className="text-muted-foreground">Need something custom?</span>
+              <span className="text-gray-600">Need something custom?</span>
               <button
                 onClick={() => setIsCustomOrderModalOpen(true)}
                 className="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
@@ -294,7 +294,7 @@ export default function CakeListPage() {
       <section className="py-12">
         <div className="container mx-auto px-4">
           <div className="mb-6">
-            <p className="text-muted-foreground">
+            <p className="text-gray-600">
               Showing {filteredCakes.length} of {cakes.length} cakes
             </p>
           </div>
@@ -385,8 +385,8 @@ export default function CakeListPage() {
           {filteredCakes.length === 0 && (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">🔍</div>
-              <h3 className="text-xl font-semibold mb-2">No cakes found</h3>
-              <p className="text-muted-foreground mb-4">
+              <h3 className="text-xl font-semibold mb-2 text-gray-900">No cakes found</h3>
+              <p className="text-gray-600 mb-4">
                 Try adjusting your search or filter criteria
               </p>
               <button

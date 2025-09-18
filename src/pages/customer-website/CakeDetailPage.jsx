@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useParams, Link } from "react-router-dom"
 import { ArrowLeft, Star, MessageCircle, Clock, Users, Truck, Shield, Check, Calendar, X, User, Phone } from "lucide-react"
 
@@ -356,6 +356,37 @@ export default function CakeDetailPage() {
   const cake = cakeData[id] || cakeData[1] // Fallback to first cake if ID not found
   const currentSize = cake.sizes.find(size => size.name === selectedSize) || cake.sizes[0]
 
+  // Handle body scroll lock when modal is open
+  useEffect(() => {
+    if (isCustomerInfoModalOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+    
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
+  }, [isCustomerInfoModalOpen])
+
+  // Handle Escape key to close modal
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape' && isCustomerInfoModalOpen) {
+        setIsCustomerInfoModalOpen(false)
+      }
+    }
+
+    if (isCustomerInfoModalOpen) {
+      document.addEventListener('keydown', handleEscape)
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape)
+    }
+  }, [isCustomerInfoModalOpen])
+
   const handleWhatsAppOrder = () => {
     setIsCustomerInfoModalOpen(true)
   }
@@ -407,14 +438,14 @@ Please let me know about availability and delivery options.`
   return (
     <div className="min-h-screen bg-background">
       {/* Breadcrumb */}
-      <section className="py-4 bg-white dark:bg-gray-900 border-b">
+      <section className="py-4 bg-white border-b">
         <div className="container mx-auto px-4">
           <div className="flex items-center space-x-2 text-sm">
-            <Link to="/" className="text-muted-foreground hover:text-primary">Home</Link>
-            <span className="text-muted-foreground">/</span>
-            <Link to="/cakes" className="text-muted-foreground hover:text-primary">Cakes</Link>
-            <span className="text-muted-foreground">/</span>
-            <span className="text-foreground font-medium">{cake.name}</span>
+            <Link to="/" className="text-gray-600 hover:text-pink-500">Home</Link>
+            <span className="text-gray-600">/</span>
+            <Link to="/cakes" className="text-gray-600 hover:text-pink-500">Cakes</Link>
+            <span className="text-gray-600">/</span>
+            <span className="text-gray-900 font-medium">{cake.name}</span>
           </div>
         </div>
       </section>
@@ -425,7 +456,7 @@ Please let me know about availability and delivery options.`
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Product Image */}
             <div className="space-y-4">
-              <div className="aspect-square bg-gradient-to-br from-pink-100 to-purple-100 dark:from-pink-900/20 dark:to-purple-900/20 rounded-lg flex items-center justify-center overflow-hidden">
+              <div className="aspect-square bg-gradient-to-br from-pink-100 to-purple-100 rounded-lg flex items-center justify-center overflow-hidden">
                 <img 
                   src={cake.image} 
                   alt={cake.name}
@@ -436,7 +467,7 @@ Please let me know about availability and delivery options.`
               {/* Back Button */}
               <Link
                 to="/cakes"
-                className="inline-flex items-center text-muted-foreground hover:text-primary transition-colors"
+                className="inline-flex items-center text-gray-600 hover:text-pink-500 transition-colors"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back to Cakes
@@ -446,7 +477,7 @@ Please let me know about availability and delivery options.`
             {/* Product Info */}
             <div className="space-y-6">
               <div>
-                <h1 className="text-4xl font-bold text-foreground mb-2">{cake.name}</h1>
+                <h1 className="text-4xl font-bold text-gray-900 mb-2">{cake.name}</h1>
                 <div className="flex items-center space-x-4 mb-4">
                   <div className="flex items-center">
                     {[...Array(5)].map((_, i) => (
@@ -460,26 +491,26 @@ Please let me know about availability and delivery options.`
                       />
                     ))}
                   </div>
-                  <span className="text-muted-foreground">
+                  <span className="text-gray-600">
                     {cake.rating} ({cake.reviews} reviews)
                   </span>
                 </div>
-                <p className="text-lg text-muted-foreground">{cake.description}</p>
+                <p className="text-lg text-gray-600">{cake.description}</p>
               </div>
 
               {/* Price */}
-              <div className="bg-gradient-to-r from-pink-50 to-purple-50 dark:from-pink-950/20 dark:to-purple-950/20 rounded-lg p-6">
+              <div className="bg-gradient-to-r from-pink-50 to-purple-50 rounded-lg p-6">
                 <div className="text-3xl font-bold text-pink-600 mb-2">
                   ₹{currentSize.price}
                 </div>
-                <div className="text-muted-foreground">
+                <div className="text-gray-600">
                   Serves {currentSize.serves}
                 </div>
               </div>
 
               {/* Size Selection */}
               <div>
-                <h3 className="text-lg font-semibold mb-3">Choose Weight</h3>
+                <h3 className="text-lg font-semibold mb-3 text-gray-900">Choose Weight</h3>
                 <div className="grid grid-cols-1 gap-3">
                   {cake.sizes.map((size) => (
                     <button
@@ -487,14 +518,14 @@ Please let me know about availability and delivery options.`
                       onClick={() => setSelectedSize(size.name)}
                       className={`p-4 rounded-lg border-2 text-left transition-colors ${
                         selectedSize === size.name
-                          ? "border-pink-500 bg-pink-50 dark:bg-pink-950/20"
-                          : "border-input hover:border-pink-300"
+                          ? "border-pink-500 bg-pink-50"
+                          : "border-gray-200 hover:border-pink-300"
                       }`}
                     >
                       <div className="flex justify-between items-center">
                         <div>
-                          <div className="font-medium">{size.label}</div>
-                          <div className="text-sm text-muted-foreground">Serves {size.serves}</div>
+                          <div className="font-medium text-gray-900">{size.label}</div>
+                          <div className="text-sm text-gray-600">Serves {size.serves}</div>
                         </div>
                         <div className="font-bold text-pink-600">₹{size.price}</div>
                       </div>
@@ -505,14 +536,14 @@ Please let me know about availability and delivery options.`
 
               {/* Cake Shape Selection */}
               <div>
-                <h3 className="text-lg font-semibold mb-3">Choose Shape</h3>
+                <h3 className="text-lg font-semibold mb-3 text-gray-900">Choose Shape</h3>
                 <div className="grid grid-cols-3 gap-3">
                   <button
                     onClick={() => setSelectedShape("round")}
                     className={`p-4 rounded-lg border-2 text-center transition-colors ${
                       selectedShape === "round"
-                        ? "border-pink-500 bg-pink-50 dark:bg-pink-950/20"
-                        : "border-input hover:border-pink-300"
+                        ? "border-pink-500 bg-pink-50"
+                        : "border-gray-200 hover:border-pink-300"
                     }`}
                   >
                     <div className="text-2xl mb-2">⭕</div>
@@ -522,8 +553,8 @@ Please let me know about availability and delivery options.`
                     onClick={() => setSelectedShape("square")}
                     className={`p-4 rounded-lg border-2 text-center transition-colors ${
                       selectedShape === "square"
-                        ? "border-pink-500 bg-pink-50 dark:bg-pink-950/20"
-                        : "border-input hover:border-pink-300"
+                        ? "border-pink-500 bg-pink-50"
+                        : "border-gray-200 hover:border-pink-300"
                     }`}
                   >
                     <div className="text-2xl mb-2">⬜</div>
@@ -533,8 +564,8 @@ Please let me know about availability and delivery options.`
                     onClick={() => setSelectedShape("heart")}
                     className={`p-4 rounded-lg border-2 text-center transition-colors ${
                       selectedShape === "heart"
-                        ? "border-pink-500 bg-pink-50 dark:bg-pink-950/20"
-                        : "border-input hover:border-pink-300"
+                        ? "border-pink-500 bg-pink-50"
+                        : "border-gray-200 hover:border-pink-300"
                     }`}
                   >
                     <div className="text-2xl mb-2">❤️</div>
@@ -545,18 +576,18 @@ Please let me know about availability and delivery options.`
 
               {/* Quantity */}
               <div>
-                <h3 className="text-lg font-semibold mb-3">Quantity</h3>
+                <h3 className="text-lg font-semibold mb-3 text-gray-900">Quantity</h3>
                 <div className="flex items-center space-x-4">
                   <button
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="w-10 h-10 rounded-full border border-input flex items-center justify-center hover:bg-accent transition-colors"
+                    className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors"
                   >
                     -
                   </button>
-                  <span className="text-xl font-semibold w-8 text-center">{quantity}</span>
+                  <span className="text-xl font-semibold w-8 text-center text-gray-900">{quantity}</span>
                   <button
                     onClick={() => setQuantity(quantity + 1)}
-                    className="w-10 h-10 rounded-full border border-input flex items-center justify-center hover:bg-accent transition-colors"
+                    className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors"
                   >
                     +
                   </button>
@@ -565,19 +596,19 @@ Please let me know about availability and delivery options.`
 
               {/* Delivery Date */}
               <div>
-                <h3 className="text-lg font-semibold mb-3">Delivery Date</h3>
+                <h3 className="text-lg font-semibold mb-3 text-gray-900">Delivery Date</h3>
                 <div className="relative">
-                  <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+                  <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 w-4 h-4" />
                   <input
                     type="date"
                     value={deliveryDate}
                     onChange={(e) => setDeliveryDate(e.target.value)}
                     min={new Date().toISOString().split('T')[0]}
-                    className="w-full pl-10 pr-4 py-3 border border-input rounded-lg bg-background text-sm focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all"
+                    className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg bg-white text-sm focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all"
                     placeholder="Select delivery date"
                   />
                 </div>
-                <p className="text-xs text-muted-foreground mt-2">
+                <p className="text-xs text-gray-500 mt-2">
                   Please select your preferred delivery date. Same day delivery available for orders placed before 2 PM.
                 </p>
               </div>
@@ -594,9 +625,9 @@ Please let me know about availability and delivery options.`
               </div>
 
               {/* Total Price */}
-              <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+              <div className="bg-gray-50 rounded-lg p-4">
                 <div className="flex justify-between items-center">
-                  <span className="text-lg font-semibold">Total:</span>
+                  <span className="text-lg font-semibold text-gray-900">Total:</span>
                   <span className="text-2xl font-bold text-pink-600">
                     ₹{currentSize.price * quantity}
                   </span>
@@ -608,33 +639,33 @@ Please let me know about availability and delivery options.`
       </section>
 
       {/* Product Details Tabs */}
-      <section className="py-12 bg-gray-50 dark:bg-gray-900">
+      <section className="py-12 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {/* Description */}
               <div>
-                <h3 className="text-2xl font-bold mb-4">Description</h3>
-                <p className="text-muted-foreground leading-relaxed mb-6">
+                <h3 className="text-2xl font-bold mb-4 text-gray-900">Description</h3>
+                <p className="text-gray-600 leading-relaxed mb-6">
                   {cake.longDescription}
                 </p>
                 
-                <h4 className="text-lg font-semibold mb-3">Flavors</h4>
+                <h4 className="text-lg font-semibold mb-3 text-gray-900">Flavors</h4>
                 <div className="flex flex-wrap gap-2 mb-6">
                   {cake.flavors.map((flavor, index) => (
                     <span
                       key={index}
-                      className="px-3 py-1 bg-pink-100 dark:bg-pink-900/20 text-pink-700 dark:text-pink-300 rounded-full text-sm"
+                      className="px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-sm"
                     >
                       {flavor}
                     </span>
                   ))}
                 </div>
 
-                <h4 className="text-lg font-semibold mb-3">Ingredients</h4>
+                <h4 className="text-lg font-semibold mb-3 text-gray-900">Ingredients</h4>
                 <ul className="space-y-2">
                   {cake.ingredients.map((ingredient, index) => (
-                    <li key={index} className="flex items-center text-muted-foreground">
+                    <li key={index} className="flex items-center text-gray-600">
                       <Check className="w-4 h-4 text-green-500 mr-2" />
                       {ingredient}
                     </li>
@@ -644,32 +675,32 @@ Please let me know about availability and delivery options.`
 
               {/* Delivery & Customization */}
               <div>
-                <h3 className="text-2xl font-bold mb-4">Delivery Options</h3>
+                <h3 className="text-2xl font-bold mb-4 text-gray-900">Delivery Options</h3>
                 <div className="space-y-4 mb-8">
                   {cake.deliveryOptions.map((option, index) => (
-                    <div key={index} className="flex items-center justify-between p-4 bg-white dark:bg-gray-800 rounded-lg">
+                    <div key={index} className="flex items-center justify-between p-4 bg-white rounded-lg">
                       <div>
-                        <div className="font-medium">{option.label}</div>
-                        <div className="text-sm text-muted-foreground">{option.time}</div>
+                        <div className="font-medium text-gray-900">{option.label}</div>
+                        <div className="text-sm text-gray-600">{option.time}</div>
                       </div>
                       <div className="font-semibold text-pink-600">{option.cost}</div>
                     </div>
                   ))}
                 </div>
 
-                <h3 className="text-2xl font-bold mb-4">Customization Options</h3>
+                <h3 className="text-2xl font-bold mb-4 text-gray-900">Customization Options</h3>
                 <ul className="space-y-2">
                   {cake.customizations.map((option, index) => (
-                    <li key={index} className="flex items-center text-muted-foreground">
+                    <li key={index} className="flex items-center text-gray-600">
                       <Check className="w-4 h-4 text-green-500 mr-2" />
                       {option}
                     </li>
                   ))}
                 </ul>
 
-                <div className="mt-6 p-4 bg-yellow-50 dark:bg-yellow-950/20 rounded-lg">
-                  <h4 className="font-semibold text-yellow-800 dark:text-yellow-200 mb-2">Allergen Information</h4>
-                  <p className="text-sm text-yellow-700 dark:text-yellow-300">
+                <div className="mt-6 p-4 bg-yellow-50 rounded-lg">
+                  <h4 className="font-semibold text-yellow-800 mb-2">Allergen Information</h4>
+                  <p className="text-sm text-yellow-700">
                     This cake contains: {cake.allergens.join(", ")}
                   </p>
                 </div>
@@ -687,22 +718,22 @@ Please let me know about availability and delivery options.`
               <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 text-white mb-4">
                 <Clock className="w-6 h-6" />
               </div>
-              <h3 className="font-semibold mb-2">Fresh Daily</h3>
-              <p className="text-sm text-muted-foreground">Made fresh every day with premium ingredients</p>
+              <h3 className="font-semibold mb-2 text-gray-900">Fresh Daily</h3>
+              <p className="text-sm text-gray-600">Made fresh every day with premium ingredients</p>
             </div>
             <div className="text-center">
               <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 text-white mb-4">
                 <Truck className="w-6 h-6" />
               </div>
-              <h3 className="font-semibold mb-2">Fast Delivery</h3>
-              <p className="text-sm text-muted-foreground">Quick and safe delivery to your doorstep</p>
+              <h3 className="font-semibold mb-2 text-gray-900">Fast Delivery</h3>
+              <p className="text-sm text-gray-600">Quick and safe delivery to your doorstep</p>
             </div>
             <div className="text-center">
               <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 text-white mb-4">
                 <Shield className="w-6 h-6" />
               </div>
-              <h3 className="font-semibold mb-2">Quality Guarantee</h3>
-              <p className="text-sm text-muted-foreground">100% satisfaction guarantee on all our cakes</p>
+              <h3 className="font-semibold mb-2 text-gray-900">Quality Guarantee</h3>
+              <p className="text-sm text-gray-600">100% satisfaction guarantee on all our cakes</p>
             </div>
           </div>
         </div>
@@ -710,7 +741,7 @@ Please let me know about availability and delivery options.`
 
       {/* Customer Information Modal */}
       {isCustomerInfoModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto">
           {/* Backdrop */}
           <div 
             className="absolute inset-0 bg-gradient-to-br from-pink-500/20 via-purple-500/20 to-rose-500/20 backdrop-blur-sm"
@@ -718,9 +749,9 @@ Please let me know about availability and delivery options.`
           />
           
           {/* Modal */}
-          <div className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-md w-full transform transition-all duration-300 scale-100">
+          <div className="relative bg-white rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto transform transition-all duration-300 scale-100 my-4">
             {/* Header */}
-            <div className="relative bg-gradient-to-r from-pink-500 via-purple-500 to-rose-500 p-6 text-white rounded-t-2xl">
+            <div className="sticky top-0 z-10 bg-gradient-to-r from-pink-500 via-purple-500 to-rose-500 p-4 sm:p-6 text-white rounded-t-2xl">
               <div className="absolute inset-0 bg-black/10 rounded-t-2xl" />
               <div className="relative flex items-center justify-between">
                 <div className="flex items-center space-x-3">
@@ -742,35 +773,35 @@ Please let me know about availability and delivery options.`
             </div>
 
             {/* Form */}
-            <form onSubmit={handleCustomerInfoSubmit} className="p-6 space-y-6">
+            <form onSubmit={handleCustomerInfoSubmit} className="p-4 sm:p-6 space-y-4 sm:space-y-6 pb-20">
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-foreground">Full Name *</label>
+                  <label className="text-sm font-medium text-gray-900">Full Name *</label>
                   <div className="relative">
-                    <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+                    <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 w-4 h-4" />
                     <input
                       type="text"
                       name="name"
                       value={customerInfo.name}
                       onChange={handleCustomerInfoChange}
                       required
-                      className="w-full pl-10 pr-4 py-3 border border-gray-200 dark:border-gray-700 rounded-xl bg-background text-sm focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all"
+                      className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl bg-white text-sm focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all"
                       placeholder="Enter your full name"
                     />
                   </div>
                 </div>
                 
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-foreground">Mobile Number *</label>
+                  <label className="text-sm font-medium text-gray-900">Mobile Number *</label>
                   <div className="relative">
-                    <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+                    <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 w-4 h-4" />
                     <input
                       type="tel"
                       name="mobile"
                       value={customerInfo.mobile}
                       onChange={handleCustomerInfoChange}
                       required
-                      className="w-full pl-10 pr-4 py-3 border border-gray-200 dark:border-gray-700 rounded-xl bg-background text-sm focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all"
+                      className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl bg-white text-sm focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all"
                       placeholder="+91 98765 43210"
                     />
                   </div>
@@ -778,20 +809,20 @@ Please let me know about availability and delivery options.`
               </div>
 
               {/* Cake Personalization Section */}
-              <div className="border-t border-gray-200 dark:border-gray-600 pt-6">
-                <h4 className="text-lg font-semibold text-foreground mb-4 flex items-center">
+              <div className="border-t border-gray-200 pt-6">
+                <h4 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
                   <span className="text-2xl mr-2">🎂</span>
                   Cake Personalization
                 </h4>
                 
                 <div className="space-y-4">
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-foreground">Occasion</label>
+                    <label className="text-sm font-medium text-gray-900">Occasion</label>
                     <select
                       name="occasion"
                       value={customerInfo.occasion}
                       onChange={handleCustomerInfoChange}
-                      className="w-full px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-xl bg-background text-sm focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all"
+                      className="w-full px-4 py-3 border border-gray-200 rounded-xl bg-white text-sm focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all"
                     >
                       <option value="">Select occasion (optional)</option>
                       <option value="Birthday">🎂 Birthday</option>
@@ -806,16 +837,16 @@ Please let me know about availability and delivery options.`
                   </div>
                   
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-foreground">Text to write on cake</label>
+                    <label className="text-sm font-medium text-gray-900">Text to write on cake</label>
                     <textarea
                       name="engravingText"
                       value={customerInfo.engravingText}
                       onChange={handleCustomerInfoChange}
                       rows={3}
-                      className="w-full px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-xl bg-background text-sm focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all resize-none"
+                      className="w-full px-4 py-3 border border-gray-200 rounded-xl bg-white text-sm focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all resize-none"
                       placeholder="e.g., Happy Birthday John!, Congratulations!, Happy Anniversary Mom & Dad, etc."
                     />
-                    <p className="text-xs text-muted-foreground">
+                    <p className="text-xs text-gray-500">
                       💡 Tip: Keep it short and sweet for best results. Maximum 2-3 lines recommended.
                     </p>
                   </div>
@@ -823,25 +854,25 @@ Please let me know about availability and delivery options.`
               </div>
 
               {/* Order Summary */}
-              <div className="bg-gray-50 dark:bg-gray-700 rounded-xl p-4 space-y-2">
-                <h4 className="font-semibold text-foreground">Order Summary</h4>
-                <div className="text-sm text-muted-foreground space-y-1">
+              <div className="bg-gray-50 rounded-xl p-4 space-y-2">
+                <h4 className="font-semibold text-gray-900">Order Summary</h4>
+                <div className="text-sm text-gray-600 space-y-1">
                   <div>• {cake.name} - {currentSize.label}</div>
                   <div>• Shape: {selectedShape === "round" ? "Round" : selectedShape === "square" ? "Square" : "Heart"}</div>
                   <div>• Quantity: {quantity}</div>
                   {deliveryDate && <div>• Delivery: {deliveryDate}</div>}
                   {customerInfo.occasion && <div>• Occasion: {customerInfo.occasion}</div>}
                   {customerInfo.engravingText && <div>• Text: "{customerInfo.engravingText}"</div>}
-                  <div className="font-semibold text-foreground pt-2">Total: ₹{currentSize.price * quantity}</div>
+                  <div className="font-semibold text-gray-900 pt-2">Total: ₹{currentSize.price * quantity}</div>
                 </div>
               </div>
 
               {/* Buttons */}
-              <div className="flex gap-3">
+              <div className="sticky bottom-0 bg-white pt-4 border-t border-gray-100 flex flex-col sm:flex-row gap-3">
                 <button
                   type="button"
                   onClick={() => setIsCustomerInfoModalOpen(false)}
-                  className="flex-1 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                  className="flex-1 px-4 py-3 border border-gray-300 rounded-xl text-sm font-medium hover:bg-gray-50 transition-colors"
                 >
                   Cancel
                 </button>
