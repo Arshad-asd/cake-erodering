@@ -303,7 +303,7 @@ export default function CakeListPage() {
             {filteredCakes.map((cake) => (
               <div
                 key={cake.id}
-                className="group bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
+                className="group bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
               >
                 {/* Cake Image */}
                 <div className="aspect-square bg-gradient-to-br from-pink-100 to-purple-100 dark:from-pink-900/20 dark:to-purple-900/20 flex items-center justify-center overflow-hidden">
@@ -317,12 +317,12 @@ export default function CakeListPage() {
                 {/* Cake Info */}
                 <div className="p-6">
                   <div className="mb-2">
-                    <h3 className="text-xl font-bold text-foreground group-hover:text-pink-600 transition-colors">
+                    <h3 className="text-xl font-bold text-gray-900 group-hover:text-pink-600 transition-colors">
                       {cake.name}
                     </h3>
                   </div>
 
-                  <p className="text-muted-foreground text-sm mb-3 line-clamp-2">
+                  <p className="text-gray-600 text-sm mb-3 line-clamp-2">
                     {cake.description}
                   </p>
 
@@ -339,7 +339,7 @@ export default function CakeListPage() {
                         />
                       ))}
                     </div>
-                    <span className="text-sm text-muted-foreground ml-2">
+                    <span className="text-sm text-gray-500 ml-2">
                       {cake.rating} ({cake.serves})
                     </span>
                   </div>
@@ -349,11 +349,11 @@ export default function CakeListPage() {
                       <div className="text-2xl font-bold text-pink-600">
                         ₹{cake.price}
                       </div>
-                      <div className="text-sm font-medium text-foreground bg-pink-100 dark:bg-pink-900/20 text-pink-700 dark:text-pink-300 px-2 py-1 rounded-full">
+                      <div className="text-sm font-medium text-pink-700 bg-pink-100 px-2 py-1 rounded-full">
                         {cake.size}
                       </div>
                     </div>
-                    <div className="text-sm text-muted-foreground">
+                    <div className="text-sm text-gray-500">
                       {cake.delivery}
                     </div>
                   </div>
@@ -362,7 +362,7 @@ export default function CakeListPage() {
                     {cake.flavors.map((flavor, index) => (
                       <span
                         key={index}
-                        className="px-2 py-1 bg-pink-100 dark:bg-pink-900/20 text-pink-700 dark:text-pink-300 text-xs rounded-full"
+                        className="px-2 py-1 bg-pink-100 text-pink-700 text-xs rounded-full"
                       >
                         {flavor}
                       </span>
